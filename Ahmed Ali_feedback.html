@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html><link rel="stylesheet" href="Styles.css" /><a id="home"></a><head> 
+<h2>Module: <span style="color:Navy">MTHS2008 - Advanced Mathematical Modelling for Process Engineers</span><br>
+Assessment:  <span style="color:Navy">Coursework 2</span></h2>
+<h4>Student Name:  <span style="color:Navy">Ahmed Ali</span><br>
+Student ID:  <span style="color:Navy">20566668</span><br>
+Marks Available:  <span style="color:Navy">100.0</span><br>
+Raw Mark:  <span style="color:Navy">70.0</span><br>
+Penalty: <span style="color:red">5% (Required lecturer edits to avoid use of hardcoded Nx (supposed to be variable arguments))</span><br>
+Final Mark: <span style="color:blue">65.0</span></h4><br>
+</head> 
+<body> 
+<table>
+<tr>
+<td><b>Case</b></td>
+<th><b>Mark Obtained</b></th>
+</tr>
+<tr>
+<td><a href="#Q1aTests">Q1a Tests</a></td><td><span style="color:green">7.0/8.0</span></td>
+</tr>
+<tr>
+<td><a href="#Q1bTests">Q1b Tests</a></td><td><span style="color:green">12.0/12.0</span></td>
+</tr>
+<tr>
+<td><a href="#Q2Testu0">Q2 Test u0</a></td><td><span style="color:green">6.0/6.0</span></td>
+</tr>
+<tr>
+<td><a href="#Q2Testfinitedifferencemethod">Q2 Test finite difference method</a></td><td><span style="color:green">21.0/29.0</span></td>
+</tr>
+<tr>
+<td><a href="#Q3a-bTestfinitedifferencemethodwithforcing">Q3a-b Test finite difference method with forcing</a></td><td><span style="color:green">10.0/25.0</span></td>
+</tr>
+<tr>
+<td><a href="#Q3cCommentsonResults">Q3c Comments on Results</a></td><td><span style="color:green">6.0/10.0</span></td>
+</tr>
+<tr>
+<td><a href="#CommentingandStructure-GeneralFeedback">Commenting and Structure - General Feedback</a></td><td><span style="color:green">8.0/10.0</span></td>
+</tr>
+</table>
+<div class="space"></div>
+<a id="Q1aTests">
+<p> <b>Case: Q1a Tests</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#home">home</a></b><br></p>
+<p>Here we check that your function f is defined correctly, and that it returns the expected values at the given times.</p><div class="command"><h3> Commands Executed: </h3>
+<p style="margin-left:60px;"<tt><tt>import completeQ1, modelQ1<br>
+completeQ1.garys_student_specific_domainsize = student_dict["DomainSize"]<br>
+x = np.linspace(0,completeQ1.garys_student_specific_domainsize,10001)<br>
+t = 0.05<br>
+completeQ1.garys_student_specific_T = student_dict["StimPeriod"]<br>
+completeQ1.garys_student_specific_centred = student_dict["StimCentre"]<br>
+completeQ1.garys_student_specific_width = student_dict["StimWidth"]<br>
+completeQ1.garys_student_specific_height = student_dict["StimHeight"]<br>
+modelQ1.garys_student_specific_T = student_dict["StimPeriod"]<br>
+modelQ1.garys_student_specific_centred = student_dict["StimCentre"]<br>
+modelQ1.garys_student_specific_width = student_dict["StimWidth"]<br>
+modelQ1.garys_student_specific_height = student_dict["StimHeight"]<br>
+vec_f = np.vectorize(completeQ1.f)<br>
+model_vec_f = np.vectorize(modelQ1.f)<br>
+f_values = vec_f(x,t)<br>
+model_f_values = model_vec_f(x,t)<br>
+fig1 = plt.figure(figsize=(8, 5))<br>
+plt.plot(x,f_values,"b.-", label="student solution")<br>
+plt.plot(x,model_f_values,"r-", label="model solution")<br>
+plt.xlabel("x")<br>
+plt.ylabel("f(x,t)")<br>
+plt.title("f(x,t="+str(t)+")")<br>
+plt.xlim(completeQ1.garys_student_specific_centred-1.2*completeQ1.garys_student_specific_width,completeQ1.garys_student_specific_centred+1.2*completeQ1.garys_student_specific_width)<br>
+plt.legend()<br>
+f_values_type = type(f_values)<br>
+print(f_values_type)<br>
+f_values_shape = f_values.shape<br>
+f_values_0_type = type(f_values[0])<br>
+f_values_0_04999 = vec_f(x,0.04999)<br>
+f_values_0_09999 = vec_f(x,0.09999)<br>
+f_values_0_1 = vec_f(x,0.1)<br>
+f_values_periodic = vec_f(x,t+1e-12+3*completeQ1.garys_student_specific_T)<br>
+f_values_periodic_0_04999 = vec_f(x,0.04999+3*completeQ1.garys_student_specific_T)<br>
+f_values_periodic_0_09999 = vec_f(x,0.09999+3*completeQ1.garys_student_specific_T)<br>
+f_values_periodic_0_1 = vec_f(x,0.1+1e-12+3*completeQ1.garys_student_specific_T)<br>
+</tt></tt></p></div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.1 - Plot of active function</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output: </h4>
+<pre><p style="margin-left:60px;">fig1 = </p></pre><p style="margin-left:90px;"><img src="student_fig1.png"></p><br><br>
+</div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.2 - Check for correct numpy array being returned</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_type = </pre><pre><p style="margin-left:90px;">&ltclass 'numpy.ndarray'&gt</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_type = </p></pre><pre><p style="margin-left:90px;">&ltclass 'numpy.ndarray'&gt</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.3 - Check for the number type in the array</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_type = </pre><pre><p style="margin-left:90px;">&ltclass 'numpy.float64'&gt</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_type = </p></pre><pre><p style="margin-left:90px;">&ltclass 'numpy.float64'&gt</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 2.0/2.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.4 - Check the correct size of array is returned (same as input)</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_shape = </pre><pre><p style="margin-left:90px;">(10001,)</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_shape = </p></pre><pre><p style="margin-left:90px;">(10001,)</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.5 - Check values at t=0.05 when the machine should be on </h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 1.0/1.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.6 - Check values at t=0.04999 when the machine should be off</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_04999 = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_04999 = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.7 - Check values at t=0.099999 when the machine should still be on</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_09999 = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_09999 = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.8 - Check values at t=0.1 when the machine should be off</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_1 = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_0_1 = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.0/1.0</h3>
+<p style="color:green"> Comment: Incorrect values present (in 2223/10001 entries).</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.9 - Check values at t=0.05 + N*period when the machine should be on </h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.10 - Check values at t=0.04999 + N*period when the machine should be off</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic_0_04999 = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic_0_04999 = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.11 - Check values at t=0.099999 + N*period when the machine should still be on</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic_0_09999 = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic_0_09999 = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.12 - Check values at t=0.1 + N*period when the machine should be off</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic_0_1 = </pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f_values_periodic_0_1 = </p></pre><pre><p style="margin-left:90px;">[0. 0. 0. ... 0. 0. 0.]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<a id="Q1bTests">
+<p> <b>Case: Q1b Tests</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#home">home</a></b><br></p>
+<p>Here we check the value of the test integral discussed in the question, as well as another integral.</p><div class="command"><h3> Commands Executed: </h3>
+<p style="margin-left:60px;"<tt><tt>import completeQ1, modelQ1<br>
+completeQ1.garys_student_specific_domainsize = student_dict["DomainSize"]<br>
+x = np.linspace(-1,completeQ1.garys_student_specific_domainsize,10001)<br>
+Tfinal = student_dict["StimPeriod"]<br>
+Nx = int(student_dict["Q1Nx"])<br>
+Nt = int(student_dict["Q1Nt"])<br>
+completeQ1.garys_student_specific_T = student_dict["StimPeriod"]<br>
+completeQ1.garys_student_specific_centred = student_dict["StimCentre"]<br>
+completeQ1.garys_student_specific_width = student_dict["StimWidth"]<br>
+completeQ1.garys_student_specific_height = student_dict["StimHeight"]<br>
+modelQ1.garys_student_specific_T = student_dict["StimPeriod"]<br>
+modelQ1.garys_student_specific_centred = student_dict["StimCentre"]<br>
+modelQ1.garys_student_specific_width = student_dict["StimWidth"]<br>
+modelQ1.garys_student_specific_height = student_dict["StimHeight"]<br>
+modelQ1.garys_student_specific_domainsize = student_dict["DomainSize"]<br>
+vec_f = np.vectorize(modelQ1.f)<br>
+vec_f2 = np.vectorize(modelQ1.f2)<br>
+f1_integral_value = completeQ1.calculate_double_simpsons_integral(Tfinal, vec_f, Nx, Nt)<br>
+f2_integral_value = completeQ1.calculate_double_simpsons_integral(Tfinal, vec_f2, Nx, Nt)<br>
+</tt></tt></p></div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.13 - Check for integral(correct f) being returned, should be close to 0.2</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f1_integral_value = </pre><pre><p style="margin-left:90px;">0.2</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f1_integral_value = </p></pre><pre><p style="margin-left:90px;">0.2</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 6.0/6.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 1.14 - Check integral of a different function, f(x,t)=x^2 * t^2</h3>
+<div class="space"></div>
+<p>Generally students get this wrong if they are using the same weights for both the x and t directions in the double sum.</p>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">f2_integral_value = </pre><pre><p style="margin-left:90px;">1.1197440000000063</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">f2_integral_value = </p></pre><pre><p style="margin-left:90px;">1.1197440000000067</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 6.0/6.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<a id="Q2Testu0">
+<p> <b>Case: Q2 Test u0</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#home">home</a></b><br></p>
+<div class="command"><h3> Commands Executed: </h3>
+<p style="margin-left:60px;"<tt><tt>import completeQ2, modelQ2<br>
+x = np.linspace(0,1.2,1001)<br>
+vec_u0 = np.vectorize(completeQ2.u0)<br>
+model_vec_u0 = np.vectorize(modelQ2.u0)<br>
+u0_values = vec_u0(x)<br>
+model_u0_values = model_vec_u0(x)<br>
+fig2 = plt.figure(figsize=(8, 5))<br>
+plt.plot(x,u0_values,"b.-", label="student ICs")<br>
+plt.plot(x,model_u0_values,"r-", label="correct ICs")<br>
+plt.xlabel("x")<br>
+plt.ylabel("u0(x)")<br>
+plt.title("Initial condition function")<br>
+plt.legend()<br>
+u0_values_type = type(u0_values)<br>
+print(u0_values_type)<br>
+u0_values_shape = u0_values.shape<br>
+u0_values_0_type = type(u0_values[0])<br>
+</tt></tt></p></div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.1 - Plot of u0 initial condition function</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output: </h4>
+<pre><p style="margin-left:60px;">fig2 = </p></pre><p style="margin-left:90px;"><img src="student_fig2.png"></p><br><br>
+</div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.2 - Check for correct numpy array being returned</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u0_values_type = </pre><pre><p style="margin-left:90px;">&ltclass 'numpy.ndarray'&gt</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u0_values_type = </p></pre><pre><p style="margin-left:90px;">&ltclass 'numpy.ndarray'&gt</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.3 - Check for the number type in the array</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u0_values_0_type = </pre><pre><p style="margin-left:90px;">&ltclass 'numpy.float64'&gt</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u0_values_0_type = </p></pre><pre><p style="margin-left:90px;">&ltclass 'numpy.float64'&gt</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 2.0/2.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.4 - Check the correct size of array is returned (same as input)</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u0_values_shape = </pre><pre><p style="margin-left:90px;">(1001,)</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u0_values_shape = </p></pre><pre><p style="margin-left:90px;">(1001,)</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 0.5/0.5</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.5 - Check all values of vector </h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u0_values = </pre><pre><p style="margin-left:90px;">[0.     0.0048 0.0096 ... 0.     0.     0.    ]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u0_values = </p></pre><pre><p style="margin-left:90px;">[0.     0.0048 0.0096 ... 0.     0.     0.    ]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 3.0/3.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<a id="Q2Testfinitedifferencemethod">
+<p> <b>Case: Q2 Test finite difference method</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#home">home</a></b><br></p>
+<p>Here we apply a test to your completeQ2.py code. It is similar to the suggested test case, but has a different choice of Nx and Nt to highlight differences in numerical methods more strongly, to assist in marking. So none of the below output will look exactly like your test cases. It is therefore possible you will have wild oscillations in the below that you have not seen before, but all results are generated with your code. Equally, bugs may have been fixed because we run with the model solution for the initial condition. The marker's diagnosis of what (if anything) is wrong with the code can be found in section 2.10.</p><div class="command"><h3> Commands Executed: </h3>
+<p style="margin-left:60px;"<tt><tt>import completeQ2, modelQ2<br>
+completeQ2.garys_student_specific_domainsize = student_dict["DomainSize"]<br>
+modelQ2.garys_student_specific_domainsize = student_dict["DomainSize"]<br>
+completeQ2.garys_student_specific_q2a = student_dict["Q2AVALUE"]<br>
+modelQ2.garys_student_specific_q2a = student_dict["Q2AVALUE"]<br>
+completeQ2.garys_student_specific_q2b = student_dict["Q2BVALUE"]<br>
+modelQ2.garys_student_specific_q2b = student_dict["Q2BVALUE"]<br>
+Tfinal = 3*student_dict["Q3FinalTime"]<br>
+Nx = int(student_dict["Q2Nx"]/20.0)<br>
+Nt = int(student_dict["Q2Nt"]/5.0)<br>
+x = np.linspace(0,student_dict["DomainSize"],Nx+1)<br>
+model_vec_u0 = np.vectorize(modelQ2.u0)<br>
+u_values = completeQ2.advection_diffusion_backward_euler(Tfinal, Nx, Nt, model_vec_u0)<br>
+model_u_values = modelQ2.advection_diffusion_backward_euler(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong1 = modelQ2.advection_diffusion_backward_euler_upwinding_opposite(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong2 = modelQ2.advection_diffusion_backward_euler_sign_error(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong3 = modelQ2.advection_diffusion_backward_euler_domain_too_big(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong4 = modelQ2.advection_diffusion_backward_euler_upwinding_opposite_and_too_large(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong5 = modelQ2.advection_diffusion_backward_euler_sign_error_and_domain_too_large(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong6 = modelQ2.advection_diffusion_backward_euler_central_diffs(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong7 = modelQ2.advection_diffusion_backward_euler_central_diffs_and_too_large(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong8 = modelQ2.advection_diffusion_backward_euler_advection_wrong_diagonal(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong9 = modelQ2.advection_diffusion_backward_euler_advection_wrong_diagonal_too_big(Tfinal, Nx, Nt, model_vec_u0)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+fig3 = plt.figure(figsize=(8, 5))<br>
+plt.plot(x[0:u_values.shape[1]],u_values[6,:],"b.-", label="student solution")<br>
+plt.plot(x,model_u_values[6,:],"r-", label="CORRECT solution")<br>
+plt.plot(x,model_u_values_wrong3[6,:],"r--", label="solution with domain one step too large")<br>
+plt.plot(x,model_u_values_wrong1[6,:],"g-", label="solution with upwinding in the wrong direction")<br>
+plt.plot(x,model_u_values_wrong4[6,:],"g--", label="solution with upwinding in wrong direction AND domain one step too large")<br>
+plt.plot(x,model_u_values_wrong2[6,:],"m-", label="solution with sign error in term for advection")<br>
+plt.plot(x,model_u_values_wrong5[6,:],"m--", label="solution with sign error in term for advection AND domain one step too large")<br>
+plt.plot(x,model_u_values_wrong6[6,:],"y-", label="solution with central differences for advection")<br>
+plt.plot(x,model_u_values_wrong7[6,:],"y--", label="solution with central differences for advection AND domain one step too large")<br>
+plt.plot(x,model_u_values_wrong8[6,:],"c-", label="solution with advection term applied to wrong diagonal")<br>
+plt.plot(x,model_u_values_wrong9[6,:],"c--", label="solution with advection term applied to wrong diagonal AND domain one step too large")<br>
+plt.xlabel("x")<br>
+plt.ylabel("u(x,t)")<br>
+plt.title("u(x,6 timesteps)")<br>
+plt.legend(loc="center left", bbox_to_anchor=(1, 0.5))<br>
+u_values_type = type(u_values)<br>
+u_values_shape = u_values.shape<br>
+anim1 = modelQ2.make_an_animation(u_values, model_u_values, x, Tfinal, Nx, Nt)<br>
+</tt></tt></p></div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.6 - Animation of u(x,t)</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output: </h4>
+<pre><p style="margin-left:60px;">anim1 = </p></pre><p style="margin-left:90px;"><video width="640" height="480" controls><source src="student_anim1.mp4" type="video/mp4"></video></p><br><br>
+</div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.7 - Plot of u(x,t) after 6 timesteps</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output: </h4>
+<pre><p style="margin-left:60px;">fig3 = </p></pre><p style="margin-left:90px;"><img src="student_fig3.png"></p><br><br>
+</div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.8 - matrix type</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u_values_type = </pre><pre><p style="margin-left:90px;">&ltclass 'numpy.ndarray'&gt</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u_values_type = </p></pre><pre><p style="margin-left:90px;">&ltclass 'numpy.ndarray'&gt</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 2.0/2.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.9 - matrix shape</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u_values_shape = </pre><pre><p style="margin-left:90px;">(121, 37)</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u_values_shape = </p></pre><pre><p style="margin-left:90px;">(121, 37)</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 2.0/2.0</h3>
+<p style="color:green"> Comment: Correct.</p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 2.10 - finite difference implementation</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u_values = </pre><pre><p style="margin-left:90px;">[[0.         0.4        0.8        ... 0.         0.         0.        ]
+ [0.62326054 0.69761842 0.73868681 ... 0.44445184 0.49747701 0.55682833]
+ [0.41695573 0.39337353 0.35822962 ... 0.43748385 0.43738769 0.43104163]
+ ...
+ [0.27027027 0.27027027 0.27027027 ... 0.27027027 0.27027027 0.27027027]
+ [0.27027027 0.27027027 0.27027027 ... 0.27027027 0.27027027 0.27027027]
+ [0.27027027 0.27027027 0.27027027 ... 0.27027027 0.27027027 0.27027027]]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u_values = </p></pre><pre><p style="margin-left:90px;">[[0.         0.4        0.8        ... 0.         0.         0.        ]
+ [0.62442954 0.69892689 0.74015138 ... 0.49841009 0.55787273 0.62442954]
+ [0.42120917 0.3979969  0.36325063 ... 0.44097888 0.43495148 0.42120917]
+ ...
+ [0.27777778 0.27777778 0.27777778 ... 0.27777778 0.27777778 0.27777778]
+ [0.27777778 0.27777778 0.27777778 ... 0.27777778 0.27777778 0.27777778]
+ [0.27777778 0.27777778 0.27777778 ... 0.27777778 0.27777778 0.27777778]]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 17.0/25.0</h3>
+<p style="color:green"> Comment: Your finite difference matrix is Nx+1 by Nx+1, not Nx by Nx as it should be. This has the unwanted effect of increasing the domain size by one space step when considering there is now considered a difference and periodic connection between the ends x_{o} and x_{n} - an unwanted spatial step has been introduced between them.  </p>
+</div>
+</div>
+<div class="space"></div>
+<a id="Q3a-bTestfinitedifferencemethodwithforcing">
+<p> <b>Case: Q3a-b Test finite difference method with forcing</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#home">home</a></b><br></p>
+<p>Here we apply a test to your completeQ3.py code, the main diagnosis is given below Test 3.3. Again it is slightly different to the test case to highlight differences in numerical schemes more strongly. Marks are awarded for correct implementation of forcing, with no penalty for mistakes that were already present in completeQ2 code. In addition we have replaced your initial condition function u0 and forcing function f with model solutions. Some students however generated completely different code for this question, where new mistakes are penalised.</p><div class="command"><h3> Commands Executed: </h3>
+<p style="margin-left:60px;"<tt><tt>import completeQ3, modelQ1, modelQ2, modelQ3<br>
+completeQ3.garys_student_specific_domainsize = student_dict["DomainSize"]<br>
+modelQ3.garys_student_specific_domainsize = student_dict["DomainSize"]<br>
+completeQ3.garys_student_specific_q2a = student_dict["Q2AVALUE"]<br>
+modelQ3.garys_student_specific_q2a = student_dict["Q2AVALUE"]<br>
+completeQ3.garys_student_specific_q2b = student_dict["Q2BVALUE"]<br>
+modelQ3.garys_student_specific_q2b = student_dict["Q2BVALUE"]<br>
+completeQ3.garys_student_specific_period = student_dict["StimPeriod"]<br>
+modelQ3.garys_student_specific_period = student_dict["StimPeriod"]<br>
+modelQ3.garys_student_specific_Tfinal = student_dict["Q3FinalTime"]<br>
+Tfinal = student_dict["Q3FinalTime"]<br>
+Nx = int(student_dict["Q2Nx"]/10.0)<br>
+Nt = int(student_dict["Q2Nt"]/4.0)<br>
+x = np.linspace(0,student_dict["DomainSize"],Nx+1)<br>
+modelQ1.garys_student_specific_T = student_dict["StimPeriod"]<br>
+modelQ1.garys_student_specific_centred = student_dict["StimCentre"]<br>
+modelQ1.garys_student_specific_width = student_dict["StimWidth"]<br>
+modelQ1.garys_student_specific_height = student_dict["StimHeight"]<br>
+model_f = np.vectorize(modelQ1.f)<br>
+model_vec_u0 = np.vectorize(modelQ2.u0)<br>
+u_values = completeQ3.advection_diffusion_backward_euler_with_forcing(Tfinal, Nx, Nt, model_vec_u0, model_f)<br>
+model_u_values = modelQ3.advection_diffusion_backward_euler_with_forcing(Tfinal, Nx, Nt, model_vec_u0, model_f)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_forcing_wrong_timestep = modelQ3.advection_diffusion_backward_euler_with_forcing_applied_wrong_timestep(Tfinal, Nx, Nt, model_vec_u0, model_f)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+model_u_values_wrong1 = modelQ3.advection_diffusion_backward_euler_with_forcing_upwinding_opposite(Tfinal, Nx, Nt, model_vec_u0, model_f)<br>
+<span style="color:#FF8C00"> Warning Raised: Changing the sparsity structure of a csr_matrix is expensive. lil and dok are more efficient. (Line 168)</span><br>
+fig4 = plt.figure(figsize=(8, 5))<br>
+plt.plot(x[0:u_values.shape[1]],u_values[20,:],"b.-", label="student solution")<br>
+plt.plot(x,model_u_values[20,:],"r-", label="model solution")<br>
+plt.plot(x,model_u_values_forcing_wrong_timestep[20,:],"g-", label="solution with forcing applied at wrong timestep")<br>
+plt.xlabel("x")<br>
+plt.ylabel("u(x,t)")<br>
+plt.title("u(x,20 timesteps)")<br>
+plt.legend()<br>
+u_values_type = type(u_values)<br>
+u_values_shape = u_values.shape<br>
+fig5 = completeQ3.plot_total_unobtainium_over_time(u_values,Tfinal)<br>
+fig6 = modelQ3.add_model_integral_to_student_plot(model_u_values, fig5)<br>
+fig7 = modelQ3.add_model_integral_to_student_plot(model_u_values_forcing_wrong_timestep, fig6, label="Solution with forcing applied at wrong timestep", style="g--")<br>
+anim2 = modelQ2.make_an_animation(u_values, model_u_values, x, Tfinal, Nx, Nt)<br>
+</tt></tt></p></div>
+<div class="space"></div>
+<div class="test"><h3>Test 3.1 - Animation of u(x,t) with forcing</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output: </h4>
+<pre><p style="margin-left:60px;">anim2 = </p></pre><p style="margin-left:90px;"><video width="640" height="480" controls><source src="student_anim2.mp4" type="video/mp4"></video></p><br><br>
+</div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 3.2 - Plot of u(x,t) after 20 timesteps</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output: </h4>
+<pre><p style="margin-left:60px;">fig4 = </p></pre><p style="margin-left:90px;"><img src="student_fig4.png"></p><br><br>
+</div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 3.3 - forcing term implementation</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">u_values = </pre><pre><p style="margin-left:90px;">[[0.         0.2        0.4        ... 0.         0.         0.        ]
+ [0.49110611 0.65096103 0.81739414 ... 0.27952203 0.37050638 0.49110611]
+ [0.81372446 0.9340748  1.04655898 ... 0.58725688 0.69615448 0.81372446]
+ ...
+ [0.686061   0.68109136 0.67500533 ... 0.69238036 0.68983839 0.686061  ]
+ [0.66697427 0.66030523 0.65291349 ... 0.67769209 0.67280213 0.66697427]
+ [0.64657122 0.63916882 0.63140413 ... 0.65979208 0.65348457 0.64657122]]</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">u_values = </p></pre><pre><p style="margin-left:90px;">[[0.         0.2        0.4        ... 0.         0.         0.        ]
+ [0.65550355 0.79695023 0.93395371 ... 0.44346847 0.53916153 0.65550355]
+ [0.9311266  0.99624816 1.04611851 ... 0.78106965 0.85773851 0.9311266 ]
+ ...
+ [0.58320318 0.57969329 0.57642617 ... 0.59077487 0.58691302 0.58320318]
+ [0.5736648  0.57141737 0.5694519  ... 0.57893346 0.57617759 0.5736648 ]
+ [0.56914559 0.56804058 0.56719524 ... 0.57213052 0.57051028 0.56914559]]</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 3.0/15.0</h3>
+<p style="color:green"> Comment: Code contains the wrong student-specific inputs.  This is very different code to completeQ2.py, completeQ3.py should be "Based upon your solution to Question 2..." as the assignment requested .  </p>
+</div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 3.4 - Plot of total unobtainium over time (y axis altered to [0,3] and zoom region added)</h3>
+<div class="space"></div>
+<p>Note that we took your plot, altered the y axis to [0,3] and added a zoom region to assist in identifying time step mistakes. Again note you may see different behaviour to when you were testing your code as this is a slightly different test case. In particular you may see different "height" injections, this is because a coarse time step is being used for computational efficiency as well as better highlighting errors in code, which may or may not hit the same number of "active" timesteps where unobtainium is being injected. When performing this simulation for real insightful results, we would use a finer timestep that was a factor of the 0.05s that the machine is active.</p>
+<div class="output"><h4> Student Output: </h4>
+<pre><p style="margin-left:60px;">fig7 = </p></pre><p style="margin-left:90px;"><img src="student_fig7.png"></p><br><br>
+</div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 7.0/10.0</h3>
+<p style="color:green"> Comment: The plot is showing accummulation of unobtainium over time, not the total unobtainium in the system at each time step as requested.  </p>
+</div>
+</div>
+<div class="space"></div>
+<a id="Q3cCommentsonResults">
+<p> <b>Case: Q3c Comments on Results</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#home">home</a></b><br></p>
+<div class="command"><h3> Commands Executed: </h3>
+<p style="margin-left:60px;"<tt><tt>import completeQ3<br>
+comment_string = completeQ3.comment_on_results()<br>
+</tt></tt></p></div>
+<div class="space"></div>
+<div class="test"><h3>Test1</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">comment_string = </pre><pre><p style="margin-left:90px;">Every 0.4 s the machine wakes up for 0.05 s and squirts a fixed dose of unobtainium into the pipe.  Each squirt shows up as a vertical jump, and the flat bits in between are the quiet periods when the machine is off. By the end of the run we’ve added exactly the amount predicted by the area of the forcing function, so the mass balance checks out nicely.</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">comment_string = </p></pre><pre><p style="margin-left:90px;">
+Two Marks each, up to a maximum of 10, for any of the following points:
+  1. To begin with, there is a given amount of unobtainium in the system (the integral of the initial condition over the domain)
+  2. The total amount is initially constant. 
+  3. Total Unobtainium stays constant whenever the stimulus is off (outside T+0.05 to T+0.1).
+  4. It is constant as advection and diffusion neither create nor destroy unobtainium, they just move it around the domain.
+  5. The periodic boundary conditions neither create nor destroy unobtainium, they just allow it to circulate around the domain.
+  6. Total Unobtainium increases periodically.
+  7. This increase is when the stimulus f is on (between T+0.05 and T+0.1) because unobtainium is injected into the system.
+  8. The forcing function integral across space is constant when it is on, unobtainium is injected at a constant rate, resulting in a constant positive gradient/slope of total unobtainium when the machine is on.
+  9. The total unobtainium at the end of the time period is therefore going to be equal to the double integral of the forcing function over space and time (answer to Q1b multiplied by the number of activations) plus the single space integral of the initial condition.
+  10. Note that the mesh/timesteps need to be fairly refined to ensure we do not gain/lose unobtainium due to the discretisation error, this is the only reason we would see any change when stimulus/machine is off.
+    </p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 6.0/10.0</h3>
+<p style="color:green"> Comment: Jumps are not vertical, they have a constant gradient which is due to constant integral of forcing function when it is on.  </p>
+</div>
+</div>
+<div class="space"></div>
+<a id="CommentingandStructure-GeneralFeedback">
+<p> <b>Case: Commenting and Structure - General Feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#home">home</a></b><br></p>
+<p>Here we are printing your solution next to a "Model" solution, note that the model solutions are defined to work with any students inputs, so are more complicated than required for your specific inputs.</p><div class="command"><h3> Commands Executed: </h3>
+<p style="margin-left:60px;"<tt><tt>function1 = convert_function_to_html(directory+"/completeQ1.py","f")<br>
+function2 = convert_function_to_html(directory+"/completeQ1.py","calculate_double_simpsons_integral")<br>
+function3 = convert_function_to_html(directory+"/completeQ2.py","u0")<br>
+function4 = convert_function_to_html(directory+"/completeQ2.py","advection_diffusion_backward_euler")<br>
+function5 = convert_function_to_html(directory+"/completeQ3.py","advection_diffusion_backward_euler_with_forcing")<br>
+function6 = convert_function_to_html(directory+"/completeQ3.py","plot_total_unobtainium_over_time")<br>
+string1 = "Overall mark for commenting and structure"<br>
+</tt></tt></p></div>
+<div class="space"></div>
+<div class="test"><h3>Test 4.1: Comparison of student code and model solution for f(x,t)</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">function1 = </pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float</span>
+<span class="sd">        Spatial coordinate in metres.</span>
+<span class="sd">    t : float</span>
+<span class="sd">        Time in seconds.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The machine’s output f(x,t).</span>
+
+<span class="sd">        • The cycle length is T = 0.6 s.</span>
+<span class="sd">        • During each cycle it is ON from 0.05 s to 0.10 s and OFF otherwise.</span>
+<span class="sd">        • While ON the spatial profile is a triangle:</span>
+<span class="sd">              - Base goes from x = 0.5 m to 1.3 m</span>
+<span class="sd">              - Peak value 10 at x = 0.9 m</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Figure out “where” we are inside the 0.6 s cycle</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="mf">0.6</span>
+    <span class="n">cycle_t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">%</span> <span class="n">T</span>
+    <span class="k">if</span> <span class="n">cycle_t</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="ow">or</span> <span class="n">cycle_t</span> <span class="o">&gt;</span> <span class="mf">0.10</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c1"># machine is off → no injection</span>
+
+    <span class="c1"># Build the triangular spatial profile while the machine is ON</span>
+    <span class="n">x_peak</span>     <span class="o">=</span> <span class="mf">0.9</span>
+    <span class="n">half_width</span> <span class="o">=</span> <span class="mf">0.4</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">x_peak</span> <span class="o">-</span> <span class="n">half_width</span><span class="p">,</span> <span class="n">x_peak</span> <span class="o">+</span> <span class="n">half_width</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">left</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c1"># x is outside the triangle’s base</span>
+
+    <span class="n">slope</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="o">/</span> <span class="n">half_width</span>                      <span class="c1"># rise/run of the triangle</span>
+    <span class="k">return</span> <span class="n">slope</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_peak</span> <span class="k">else</span> <span class="n">slope</span> <span class="o">*</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">function1 = </p></pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parmeters: x (float): x-coordinate (m)</span>
+<span class="sd">               t (float): time (s)</span>
+<span class="sd">    Returns: float: value of the function at (x,t)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="p">((</span><span class="n">t</span> <span class="o">%</span> <span class="n">garys_student_specific_T</span><span class="p">)</span> <span class="o">&gt;=</span>
+              <span class="mf">0.05</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t</span> <span class="o">%</span> <span class="n">garys_student_specific_T</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">active</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">if</span> <span class="n">garys_student_specific_centred</span><span class="o">-</span><span class="n">garys_student_specific_width</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">garys_student_specific_centred</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">garys_student_specific_height</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">garys_student_specific_centred</span><span class="p">)</span><span class="o">/</span><span class="n">garys_student_specific_width</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">garys_student_specific_centred</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">garys_student_specific_centred</span><span class="o">+</span><span class="n">garys_student_specific_width</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">garys_student_specific_height</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">garys_student_specific_centred</span><span class="p">)</span><span class="o">/</span><span class="n">garys_student_specific_width</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mf">0.0</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 4.2: Comparison of student code and model solution for calculate_double_simpsons_integral</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">function2 = </pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_double_simpsons_integral</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Nt</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Approximate the double integral</span>
+
+
+<span class="sd">    using composite Simpson’s rule in both x and t.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Tfinal : float</span>
+<span class="sd">        Upper limit of the time integral.</span>
+<span class="sd">    f : callable</span>
+<span class="sd">        Function of two variables, f(x,t).</span>
+<span class="sd">    Nx : int</span>
+<span class="sd">        Number of sub‑intervals in x (must be even).</span>
+<span class="sd">    Nt : int</span>
+<span class="sd">        Number of sub‑intervals in t (must be even).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Simpson approximation to the double integral.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Simpson’s rule needs an even number of panels in each direction</span>
+    <span class="k">if</span> <span class="n">Nx</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Nx must be even for Simpson’s rule&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Nt</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Nt must be even for Simpson’s rule&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Grid spacing in space (x) and time (t)</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">3.6</span>
+    <span class="n">t0</span><span class="p">,</span> <span class="n">t1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">Tfinal</span>
+    <span class="n">hx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">/</span> <span class="n">Nx</span>
+    <span class="n">ht</span> <span class="o">=</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span> <span class="o">/</span> <span class="n">Nt</span>
+
+    <span class="c1"># Grid nodes</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">Nx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">Nt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="c1"># Double loop: outer loop over time, inner loop over space</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">tj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+        <span class="n">w_t</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nt</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="mi">4</span> <span class="k">if</span> <span class="n">j</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Simpson weight in t</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+            <span class="n">w_x</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nx</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="mi">4</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Simpson weight in x</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">w_x</span> <span class="o">*</span> <span class="n">w_t</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">tj</span><span class="p">)</span>  <span class="c1"># accumulate weighted f(xi,tj)</span>
+
+    <span class="c1"># Combine the spacings and Simpson factor (1/9) for the final answer</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">hx</span> <span class="o">*</span> <span class="n">ht</span> <span class="o">/</span> <span class="mf">9.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">total</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">function2 = </p></pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_weight</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the weight for Simpson&#39;s rule based on the index and total number of intervals.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    i (int): Index of the point.</span>
+<span class="sd">    N (int): Total number of intervals.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    float: Weight for the point.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">N</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="k">elif</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">2.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">4.0</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_double_simpsons_integral</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Nt</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the double integral of a function f over a rectangular region</span>
+<span class="sd">    using Simpsons rule.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    Tfinal (float): Upper bound of the integral in the t-direction.</span>
+<span class="sd">    f (function): Function to be integrated. It should take two arguments (x, t).</span>
+<span class="sd">    Nx (int): Number of subintervals in the x-direction (N.B. must be even)</span>
+<span class="sd">    Nt (int): Number of subintervals in the t-direction (N.B. must be even)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    float: Approximation of the double integral of f over the region [0, &lt;domainsize&gt;] x [0, Tfinal].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">Nx</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">Nt</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Nx and Nt must be even.&quot;</span><span class="p">)</span>
+
+    <span class="n">hx</span> <span class="o">=</span> <span class="n">garys_student_specific_domainsize</span> <span class="o">/</span> <span class="n">Nx</span>
+    <span class="n">ht</span> <span class="o">=</span> <span class="n">Tfinal</span> <span class="o">/</span> <span class="n">Nt</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">garys_student_specific_domainsize</span><span class="p">,</span> <span class="n">Nx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Tfinal</span><span class="p">,</span> <span class="n">Nt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1">#  Calculate the weight for the x-direction</span>
+        <span class="n">wx</span> <span class="o">=</span> <span class="n">calculate_weight</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">Nx</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># Calculate the weight for the t-direction</span>
+            <span class="n">wt</span> <span class="o">=</span> <span class="n">calculate_weight</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">Nt</span><span class="p">)</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">wx</span> <span class="o">*</span> <span class="n">wt</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">hx</span> <span class="o">*</span> <span class="n">ht</span> <span class="o">/</span> <span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="n">total</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 4.3: Comparison of student code and model solution for u0(x)</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">function3 = </pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">u0</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   triangular pulse:</span>
+
+<span class="sd">        4 x          for 0 ≤ x &lt; 0.5</span>
+<span class="sd">        4 (1 − x)    for 0.5 ≤ x &lt; 1</span>
+<span class="sd">        0            everywhere else</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="mf">4.0</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span><span class="p">),</span>
+            <span class="mf">0.0</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">function3 = </p></pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">u0</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the initial condition at x.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    x (float): x-coordinate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    float: value of the initial condition at x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">x</span>
+    <span class="k">elif</span> <span class="mf">0.5</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">4.0</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 4.4: Comparison of student code and model solution for advection_diffusion_backward_euler</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">function4 = </pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">advection_diffusion_backward_euler</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Nt</span><span class="p">,</span> <span class="n">u0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    March the PDE forward to *Tfinal* using backward Euler.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Tfinal : float</span>
+<span class="sd">        Time at which we want the solution.</span>
+<span class="sd">    Nx : int</span>
+<span class="sd">        Number of spatial intervals (so Nx+1 grid points).</span>
+<span class="sd">    Nt : int</span>
+<span class="sd">        Number of time steps between 0 and Tfinal.</span>
+<span class="sd">    u0 : callable</span>
+<span class="sd">        A Python function giving the initial profile u(x,0).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    u : ndarray, shape (Nt+1, Nx+1)</span>
+<span class="sd">        Row *n* contains the numerical solution at time t = n·Δt.</span>
+<span class="sd">        The last column duplicates the first so the periodic BC is</span>
+<span class="sd">        explicit in the array (handy for plotting).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Geometry and grid spacing</span>
+    <span class="n">x_upper</span> <span class="o">=</span> <span class="mf">3.6</span>     <span class="c1"># Added by Gary to make it run</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">x_upper</span>       <span class="c1"># pipe length </span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">L</span> <span class="o">/</span> <span class="n">Nx</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">Tfinal</span> <span class="o">/</span> <span class="n">Nt</span>
+
+    <span class="c1"># Physical parameters (from the coursework sheet)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">0.15</span>           <span class="c1"># diffusion coefficient</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span>          <span class="c1"># advection speed</span>
+
+    <span class="n">Np</span> <span class="o">=</span> <span class="n">Nx</span> <span class="o">+</span> <span class="mi">1</span>        <span class="c1"># total number of grid points (including x = L)</span>
+
+    <span class="c1"># ---------------------------------------------------------------------</span>
+    <span class="c1"># Build sparse matrices for the second derivative (D2) and the</span>
+    <span class="c1"># first derivative (D1) with an upwind bias that matches the sign of *b*.</span>
+    <span class="c1"># ---------------------------------------------------------------------</span>
+    <span class="n">D2</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">lil_matrix</span><span class="p">((</span><span class="n">Np</span><span class="p">,</span> <span class="n">Np</span><span class="p">))</span>
+    <span class="n">D1</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">lil_matrix</span><span class="p">((</span><span class="n">Np</span><span class="p">,</span> <span class="n">Np</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Np</span><span class="p">):</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Np</span>          <span class="c1"># left neighbour  (periodic wrap)</span>
+        <span class="n">ip</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Np</span>          <span class="c1"># right neighbour (periodic wrap)</span>
+
+        <span class="c1"># Classic second‑order central stencil for diffusion</span>
+        <span class="n">D2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">im</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">dx</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">D2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span> <span class="o">/</span> <span class="n">dx</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">D2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">ip</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">dx</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Upwind stencil for advection</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">D1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">im</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">dx</span>
+            <span class="n">D1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">dx</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">D1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">dx</span>
+            <span class="n">D1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">ip</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">dx</span>
+
+    <span class="c1"># Backward‑Euler system:  (I − dt·(a·D2 − b·D1)) · u^{n+1} = u^n</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">D2</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">D1</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">Np</span><span class="p">)</span> <span class="o">-</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">A</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>      <span class="c1"># use CSR for fast solves</span>
+
+    <span class="c1"># ---------------------------------------------------------------------</span>
+    <span class="c1"># Set up the solution array and drop in the initial condition</span>
+    <span class="c1"># ---------------------------------------------------------------------</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">Np</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Np</span><span class="p">)</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">u0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># Time‑stepping loop</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt</span><span class="p">):</span>
+        <span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">spsolve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="p">:])</span>
+
+    <span class="k">return</span> <span class="n">u</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">function4 = </p></pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">advection_diffusion_backward_euler</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Nt</span><span class="p">,</span> <span class="n">u0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the backward Euler finite difference scheme for the advection-diffusion equation.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    Tfinal (float): The time of the final timestep.</span>
+<span class="sd">    Nx (int): Number of subintervals in the x-direction</span>
+<span class="sd">    NT (int): Number of subintervals in the t-direction</span>
+<span class="sd">    u0 (function of one variable x): Function to set the initial condition at x</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    matrix (float): Approximation of the solution over the whole region</span>
+<span class="sd">                   [0, Tfinal] x [your x-domain]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Tfinal must be a float&quot;</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;Nx must be an integer&quot;</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">Nt</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;Nt must be an integer&quot;</span>
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">u0</span><span class="p">),</span> <span class="s2">&quot;u0 must be a callable function&quot;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">Nx</span><span class="p">,</span> <span class="s2">&quot;Nx must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">Nt</span><span class="p">,</span> <span class="s2">&quot;Nt must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">Tfinal</span><span class="p">,</span> <span class="s2">&quot;Tfinal must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="n">garys_student_specific_domainsize</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Domain size must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="n">garys_student_specific_q2a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Diffusion coefficient must be greater than 0&quot;</span>
+
+    <span class="n">domainsize</span> <span class="o">=</span> <span class="n">garys_student_specific_domainsize</span>  <span class="c1"># domain size</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">garys_student_specific_q2a</span>  <span class="c1"># diffusion coefficient</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">garys_student_specific_q2b</span>  <span class="c1"># advection velocity</span>
+
+    <span class="c1"># Set up the grid</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">domainsize</span><span class="p">)</span><span class="o">/</span><span class="n">Nx</span>
+    <span class="n">mesh_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">domainsize</span><span class="p">,</span> <span class="n">Nx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">Tfinal</span><span class="o">/</span><span class="n">Nt</span>  <span class="c1"># time step</span>
+
+    <span class="n">mu</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Fourier number</span>
+
+    <span class="c1"># This student should have coded things up to upwind for a forward wave</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Set the finite difference matrix</span>
+        <span class="n">main_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">lower_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">upper_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">([</span><span class="n">lower_diag</span><span class="p">,</span> <span class="n">main_diag</span><span class="p">,</span> <span class="n">upper_diag</span><span class="p">],</span>
+                         <span class="n">offsets</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>  <span class="c1"># Apply periodic boundary conditions</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># This student should have coded things up to upwind for a backward wave</span>
+        <span class="c1"># Set the finite difference matrix</span>
+        <span class="n">main_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">lower_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">upper_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">([</span><span class="n">lower_diag</span><span class="p">,</span> <span class="n">main_diag</span><span class="p">,</span> <span class="n">upper_diag</span><span class="p">],</span>
+                         <span class="n">offsets</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># Apply periodic boundary conditions</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="c1"># Start with the identity matrix</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">)],</span> <span class="n">offsets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+    <span class="c1"># Then add on mu*A</span>
+    <span class="n">B</span> <span class="o">+=</span> <span class="n">mu</span><span class="o">*</span><span class="n">A</span>
+
+    <span class="c1"># Initialise the full solution matrix</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">Nx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Set first row to the initial condition function</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">u0</span><span class="p">(</span><span class="n">mesh_points</span><span class="p">)</span>
+
+    <span class="c1"># Do the time stepping</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt</span><span class="p">):</span>
+        <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">spsolve</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Copy the first column to the end, so the whole periodic domain is shown</span>
+    <span class="n">u</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">u</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 4.5: Comparison of student code and model solution for advection_diffusion_backward_euler_with_forcing</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">function5 = </pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">advection_diffusion_backward_euler_with_forcing</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Nt</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    March a 1‑D advection–diffusion problem forward in time with</span>
+<span class="sd">    a backward‑Euler scheme *and* an external forcing term.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Tfinal : float</span>
+<span class="sd">        The final time we want to reach.</span>
+<span class="sd">    Nx : int</span>
+<span class="sd">        How many little slabs we chop the pipe into (space grid).</span>
+<span class="sd">    Nt : int</span>
+<span class="sd">        How many time steps we take to get from 0 to Tfinal.</span>
+<span class="sd">    u0 : callable</span>
+<span class="sd">        Function giving the initial concentration profile u(x,0).</span>
+<span class="sd">    f : callable</span>
+<span class="sd">        Function giving the forcing term f(x,t).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        A 2‑D array with shape (Nt+1, Nx+1).  </span>
+<span class="sd">        Row *n* is the solution at time t = n·Δt.  </span>
+<span class="sd">        The last column is a duplicate of the first to keep</span>
+<span class="sd">        the periodic boundary nice and tidy for plotting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Course‑work constants (given in the brief)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">0.2</span>          <span class="c1"># diffusion coefficient</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.0</span>         <span class="c1"># advection speed</span>
+    <span class="n">x_upper</span> <span class="o">=</span> <span class="mf">3.6</span>    <span class="c1"># length of the pipe in metres</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">x_upper</span> <span class="o">/</span> <span class="n">Nx</span>        <span class="c1"># Δx</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">Tfinal</span> <span class="o">/</span> <span class="n">Nt</span>        <span class="c1"># Δt</span>
+
+    <span class="c1"># Build the tridiagonal system matrix for backward Euler</span>
+    <span class="n">main_diag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span>
+    <span class="n">off_diag_lo</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">off_diag_hi</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Wrap‑around entries (periodic BC)</span>
+    <span class="n">lo_corner</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)]</span>   <span class="c1"># connects last node → first</span>
+    <span class="n">hi_corner</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">]</span>             <span class="c1"># connects first node → last</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">main_diag</span><span class="p">,</span> <span class="n">off_diag_lo</span><span class="p">,</span> <span class="n">off_diag_hi</span><span class="p">,</span> <span class="n">lo_corner</span><span class="p">,</span> <span class="n">hi_corner</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span>          <span class="o">-</span><span class="mi">1</span><span class="p">,</span>         <span class="mi">1</span><span class="p">,</span>          <span class="o">-</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>    <span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">Nx</span><span class="p">),</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Allocate the solution array (extra column = duplicated endpoint)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">Nx</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">xmesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_upper</span><span class="p">,</span> <span class="n">Nx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">u0</span><span class="p">(</span><span class="n">xmesh</span><span class="p">)</span>      <span class="c1"># slap the initial condition into row 0</span>
+
+    <span class="c1"># Crank through time, one backward‑Euler solve per step</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt</span><span class="p">):</span>
+        <span class="n">t_next</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+        <span class="n">u_prev</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                    <span class="c1"># strip off duplicate node</span>
+        <span class="n">rhs</span> <span class="o">=</span> <span class="n">u_prev</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">xmesh</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_next</span><span class="p">)</span>
+        <span class="n">u_next</span> <span class="o">=</span> <span class="n">spsolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span>
+        <span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u_next</span>
+        <span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u_next</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>               <span class="c1"># enforce periodic wrap</span>
+
+    <span class="k">return</span> <span class="n">u</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">function5 = </p></pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">advection_diffusion_backward_euler_with_forcing</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Nt</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">forcing</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the backward Euler finite difference scheme for the advection-diffusion equation with forcing.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    Tfinal (float): The time of the final timestep.</span>
+<span class="sd">    Nx (int): Number of subintervals in the x-direction</span>
+<span class="sd">    NT (int): Number of subintervals in the t-direction</span>
+<span class="sd">    u0 (function of one variable x): Function to set the initial condition at x</span>
+<span class="sd">    f (function of two variables x and t): Function to define the forcing term at x and t.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    matrix (float): Approximation of the solution over the whole region [0, Tfinal] x [your x-domain]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">Tfinal</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Tfinal must be a float&quot;</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;Nx must be an integer&quot;</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">Nt</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;Nt must be an integer&quot;</span>
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">u0</span><span class="p">),</span> <span class="s2">&quot;u0 must be a callable function&quot;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">Nx</span><span class="p">,</span> <span class="s2">&quot;Nx must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">Nt</span><span class="p">,</span> <span class="s2">&quot;Nt must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">Tfinal</span><span class="p">,</span> <span class="s2">&quot;Tfinal must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="n">garys_student_specific_domainsize</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Domain size must be greater than 0&quot;</span>
+    <span class="k">assert</span> <span class="n">garys_student_specific_q2a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Diffusion coefficient must be greater than 0&quot;</span>
+
+    <span class="n">domainsize</span> <span class="o">=</span> <span class="n">garys_student_specific_domainsize</span>  <span class="c1"># domain size</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">garys_student_specific_q2a</span>  <span class="c1"># diffusion coefficient</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">garys_student_specific_q2b</span>  <span class="c1"># advection velocity</span>
+
+    <span class="c1"># Set up the grid</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">domainsize</span><span class="p">)</span><span class="o">/</span><span class="n">Nx</span>
+    <span class="n">mesh_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">domainsize</span><span class="p">,</span> <span class="n">Nx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">Tfinal</span><span class="o">/</span><span class="n">Nt</span>  <span class="c1"># time step</span>
+
+    <span class="n">mu</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Fourier number</span>
+
+    <span class="c1"># This student should have coded things up to upwind for a forward wave</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Set the finite difference matrix</span>
+        <span class="n">main_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">lower_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">upper_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">([</span><span class="n">lower_diag</span><span class="p">,</span> <span class="n">main_diag</span><span class="p">,</span> <span class="n">upper_diag</span><span class="p">],</span>
+                         <span class="n">offsets</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>  <span class="c1"># Apply periodic boundary conditions</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># This student should have coded things up to upwind for a backward wave</span>
+        <span class="c1"># Set the finite difference matrix</span>
+        <span class="n">main_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">lower_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">upper_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">([</span><span class="n">lower_diag</span><span class="p">,</span> <span class="n">main_diag</span><span class="p">,</span> <span class="n">upper_diag</span><span class="p">],</span>
+                         <span class="n">offsets</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># Apply periodic boundary conditions</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="c1"># Start with the identity matrix</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">)],</span> <span class="n">offsets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+
+    <span class="n">B</span> <span class="o">+=</span> <span class="n">mu</span><span class="o">*</span><span class="n">A</span>
+
+    <span class="c1"># Initialise the solution matrix</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">Nx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">u0</span><span class="p">(</span><span class="n">mesh_points</span><span class="p">)</span>  <span class="c1"># Initial condition function</span>
+
+    <span class="c1"># plt.plot(mesh_points,u[0,:]) #Plot initial condition</span>
+
+    <span class="c1"># Do the time stepping</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt</span><span class="p">):</span>
+        <span class="c1"># print(k)</span>
+        <span class="n">time_at_end_of_this_step</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+        <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">spsolve</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">*</span>
+                              <span class="n">forcing</span><span class="p">(</span><span class="n">mesh_points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">time_at_end_of_this_step</span><span class="p">))</span>
+
+    <span class="c1"># Copy the first column to the end, so the whole periodic domain is shown</span>
+    <span class="n">u</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">u</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 4.6: Comparison of student code and model solution for plot_total_unobtainium_over_time</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">function6 = </pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_total_unobtainium_over_time</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">Tfinal</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Integrate the concentration in space (Simpson’s rule) to track how</span>
+<span class="sd">    many moles have been pumped into the pipe, then plot that as a function</span>
+<span class="sd">    of time.  The curve should look like a neat little staircase.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    u : np.ndarray</span>
+<span class="sd">        The array returned by `advection_diffusion_backward_euler_with_forcing`.</span>
+<span class="sd">    Tfinal : float</span>
+<span class="sd">        The final time used in the simulation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.figure.Figure</span>
+<span class="sd">        The Matplotlib figure containing the staircase plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Added by Gary to make it run</span>
+    <span class="n">Nx</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">Nt</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">x_upper</span> <span class="o">=</span> <span class="mf">3.6</span>     <span class="c1"># Added by Gary to make it run</span>
+
+    <span class="c1"># Simpson’s rule only works properly when Nx and Nt are even.</span>
+    <span class="k">if</span> <span class="n">Nx</span> <span class="o">%</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">Nt</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Nx and Nt both need to be even for Simpson’s rule&quot;</span><span class="p">)</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">x_upper</span> <span class="o">/</span> <span class="n">Nx</span>
+    <span class="n">t_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Tfinal</span><span class="p">,</span> <span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Build Simpson weights once, reuse for every time slice</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">weights</span> <span class="o">*=</span> <span class="n">h</span><span class="o">/</span><span class="mi">3</span>
+
+    <span class="c1"># Total moles at each time</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">u</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">added</span> <span class="o">=</span> <span class="n">total</span> <span class="o">-</span> <span class="n">total</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>      <span class="c1"># subtract whatever we started with</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Total moles added&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Moles of Unobtainium&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Unobtainium Accumulation Over Time&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">fig</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+<div class="outputModel"><h4> Model Output:</h4>
+<pre><p style="margin-left:60px;">function6 = </p></pre><pre><p style="margin-left:90px;"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_total_unobtainium_over_time</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">Tfinal</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a plot of the total unobtainium in the system over time.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">      u (matrix of floats): Approximation of the solution over the whole region </span>
+<span class="sd">                           [0, Tfinal] x [your x-domain]</span>
+<span class="sd">      Tfinal (float): The time of the final timestep.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      fig (matplotlib figure): The figure containing the plot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Do simpson&#39;s rule integration to check that the solution is correct</span>
+    <span class="n">Nt_plus_one</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Nx_plus_one</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">garys_student_specific_domainsize</span><span class="o">/</span><span class="p">(</span><span class="n">Nx_plus_one</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">integral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt_plus_one</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt_plus_one</span><span class="p">):</span>
+        <span class="n">integral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">simpsons</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">h</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Tfinal</span><span class="p">,</span> <span class="n">Nt_plus_one</span><span class="p">),</span>
+            <span class="n">integral</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model Solution&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Moles of Unobtainium&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Total unobtainium over time&quot;</span><span class="p">)</span>
+
+    <span class="n">inj_each_time</span> <span class="o">=</span> <span class="mf">0.2</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">Tfinal</span><span class="o">/</span><span class="n">garys_student_specific_period</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Tfinal</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+                <span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="p">(</span><span class="n">inj_each_time</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))),</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">simpsons</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform Simpson&#39;s rule integration on a vector of values.</span>
+<span class="sd">    The vector must have an odd length (even number of strips)</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">      vec (array-like): The vector of values to integrate.</span>
+<span class="sd">      h (float): The step size for the integration.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">      float: The result of the Simpson&#39;s rule integration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Error if the vector length is not odd</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">Nx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+
+    <span class="n">integral</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">Nx</span><span class="p">:</span>
+            <span class="n">integral</span> <span class="o">+=</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">integral</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">integral</span> <span class="o">+=</span> <span class="mi">4</span><span class="o">*</span><span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">integral</span> <span class="o">*=</span> <span class="n">h</span><span class="o">/</span><span class="mi">3</span>
+    <span class="k">return</span> <span class="n">integral</span>
+</pre></div>
+</p></pre></div>
+<div class="space"></div>
+</div>
+<div class="space"></div>
+<div class="test"><h3>Test 4.7</h3>
+<div class="space"></div>
+<div class="output"><h4> Student Output:</h4>
+<pre><p style="margin-left:60px;">string1 = </pre><pre><p style="margin-left:90px;">Overall mark for commenting and structure</p></pre></div>
+<div class="space"></div>
+<div class="marks">
+<h3 style="color:green"> Marks: 8.0/10.0</h3>
+</div>
+</div>
+<div class="space"></div>
+</body> 
+</html> 
